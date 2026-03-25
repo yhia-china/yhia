@@ -1,114 +1,424 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>婴喜爱 YHIA | 孕婴童连锁专卖店</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet"/>
   <style>
-    :root{--green-dark:#2d7a3a;--green-mid:#4aaa5a;--green-light:#e8f5eb;--yellow:#f5c518;--yellow-soft:#fff8e1;--cream:#fdf8f2;--warm-white:#fffcf7;--text-dark:#1a2e1c;--text-mid:#3d5c40;--text-light:#7a9e7d;--shadow:0 4px 30px rgba(45,122,58,0.10);}
-    *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
-    body{font-family:'Noto Sans SC',sans-serif;background:var(--warm-white);color:var(--text-dark);overflow-x:hidden;}
-    nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,252,247,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(45,122,58,0.12);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:72px;box-shadow:0 2px 16px rgba(45,122,58,0.07);}
-    .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;cursor:pointer;}
-    .nav-logo img{height:48px;width:auto;}
-    .nav-logo-text{display:flex;flex-direction:column;line-height:1.1;}
-    .nav-logo-text span:first-child{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--green-dark);letter-spacing:2px;}
-    .nav-logo-text span:last-child{font-size:10px;color:var(--text-light);letter-spacing:3px;font-weight:300;}
-    .nav-links{display:flex;gap:36px;list-style:none;}
-    .nav-links a{text-decoration:none;font-size:14px;font-weight:500;color:var(--text-mid);letter-spacing:0.5px;padding-bottom:2px;border-bottom:2px solid transparent;transition:all 0.25s;cursor:pointer;}
-    .nav-links a:hover,.nav-links a.active{color:var(--green-dark);border-bottom-color:var(--yellow);}
-    .nav-cta{background:var(--green-dark)!important;color:#fff!important;padding:9px 22px!important;border-radius:24px!important;border:none!important;}
-    .nav-cta:hover{background:var(--green-mid)!important;transform:translateY(-1px);border-bottom-color:transparent!important;}
-    .page{display:none;padding-top:72px;min-height:100vh;}.page.active{display:block;}
-    .hero{position:relative;min-height:calc(100vh - 72px);display:flex;align-items:center;overflow:hidden;}
-    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(74,170,90,0.12) 0%,transparent 70%),radial-gradient(ellipse 50% 80% at 15% 80%,rgba(245,197,24,0.10) 0%,transparent 60%),linear-gradient(160deg,var(--cream) 0%,var(--warm-white) 60%,var(--green-light) 100%);}
-    .hero-blob{position:absolute;border-radius:50%;opacity:0.18;}
-    .hero-blob-1{width:420px;height:420px;right:-80px;top:-60px;background:radial-gradient(circle,var(--green-mid),transparent);animation:float 8s ease-in-out infinite;}
-    .hero-blob-2{width:260px;height:260px;right:200px;bottom:40px;background:radial-gradient(circle,var(--yellow),transparent);animation:float 6s ease-in-out infinite reverse;}
-    .hero-blob-3{width:180px;height:180px;left:60px;top:100px;background:radial-gradient(circle,var(--green-light),transparent);animation:float 10s ease-in-out infinite;}
-    @keyframes float{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-20px) scale(1.04);}}
-    .hero-content{position:relative;z-index:2;padding:80px 8vw;max-width:680px;}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--yellow-soft);border:1px solid rgba(245,197,24,0.4);border-radius:24px;padding:6px 18px;font-size:12px;color:#a07a00;letter-spacing:1px;font-weight:500;margin-bottom:28px;}
-    .hero-badge::before{content:'★';color:var(--yellow);font-size:10px;}
-    .hero-title{font-family:'Noto Serif SC',serif;font-size:clamp(38px,5vw,62px);font-weight:900;line-height:1.15;color:var(--text-dark);margin-bottom:24px;animation:fadeInUp 0.7s 0.1s ease forwards;opacity:0;}
-    .hero-title .accent{color:var(--green-dark);}.hero-title .yellow{color:var(--yellow);}
-    .hero-sub{font-size:16px;line-height:1.9;color:var(--text-mid);margin-bottom:40px;font-weight:300;max-width:520px;animation:fadeInUp 0.7s 0.2s ease forwards;opacity:0;}
-    .hero-stats{display:flex;gap:40px;margin-bottom:44px;animation:fadeInUp 0.7s 0.3s ease forwards;opacity:0;}
-    .hero-stat-num{font-family:'Noto Serif SC',serif;font-size:36px;font-weight:900;color:var(--green-dark);line-height:1;}
-    .hero-stat-num span{font-size:18px;}
-    .hero-stat-label{font-size:12px;color:var(--text-light);margin-top:4px;letter-spacing:1px;}
-    .hero-buttons{display:flex;gap:16px;flex-wrap:wrap;animation:fadeInUp 0.7s 0.4s ease forwards;opacity:0;}
-    .btn-primary{background:var(--green-dark);color:#fff;padding:14px 34px;border-radius:32px;border:none;cursor:pointer;font-family:'Noto Sans SC',sans-serif;font-size:15px;font-weight:500;letter-spacing:1px;transition:all 0.25s;box-shadow:0 6px 20px rgba(45,122,58,0.3);}
-    .btn-primary:hover{background:var(--green-mid);transform:translateY(-2px);}
-    .btn-outline{background:transparent;color:var(--green-dark);padding:14px 34px;border-radius:32px;border:2px solid var(--green-dark);cursor:pointer;font-family:'Noto Sans SC',sans-serif;font-size:15px;font-weight:500;transition:all 0.25s;}
-    .btn-outline:hover{background:var(--green-light);transform:translateY(-2px);}
-    .hero-visual{position:absolute;right:6vw;top:50%;transform:translateY(-50%);z-index:1;animation:fadeInUp 0.9s 0.3s ease forwards;opacity:0;}
-    .hero-card{background:rgba(255,255,255,0.9);border-radius:20px;padding:20px 28px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);width:280px;transition:transform 0.3s;margin-bottom:16px;}
-    .hero-card:hover{transform:translateX(-6px);}
-    .hero-card:nth-child(2){margin-left:30px;}
-    .hero-card-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
-    .hero-card-text h4{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:2px;}
-    .hero-card-text p{font-size:11px;color:var(--text-light);line-height:1.4;}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-    section{padding:90px 8vw;}
-    .section-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:3px;font-weight:500;color:var(--green-mid);text-transform:uppercase;margin-bottom:16px;}
-    .section-label::before,.section-label::after{content:'';display:block;width:24px;height:1px;background:var(--green-mid);}
-    .section-title{font-family:'Noto Serif SC',serif;font-size:clamp(26px,3.5vw,42px);font-weight:700;color:var(--text-dark);margin-bottom:16px;line-height:1.3;}
-    .section-sub{font-size:15px;color:var(--text-mid);line-height:1.9;font-weight:300;max-width:560px;margin-bottom:56px;}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
-    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-    .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
-    .card-white{background:#fff;border-radius:20px;padding:36px 28px;border:1px solid rgba(45,122,58,0.08);box-shadow:var(--shadow);transition:transform 0.3s,box-shadow 0.3s;}
-    .card-white:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(45,122,58,0.15);}
-    .value-card{position:relative;overflow:hidden;}
-    .value-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green-dark),var(--yellow));}
-    .service-card{background:#fff;border-radius:24px;padding:44px 36px;box-shadow:var(--shadow);border:1px solid rgba(45,122,58,0.07);transition:all 0.3s;display:flex;flex-direction:column;gap:20px;}
-    .service-card:hover{transform:translateY(-8px);box-shadow:0 20px 56px rgba(45,122,58,0.15);}
-    .service-card-top{display:flex;align-items:center;gap:20px;}
-    .service-icon-wrap{width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
-    .service-card h3{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--text-dark);}
-    .service-card p{font-size:14px;color:var(--text-mid);line-height:1.9;font-weight:300;}
-    .service-tags{display:flex;flex-wrap:wrap;gap:8px;}
-    .tag{background:var(--green-light);color:var(--green-dark);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:500;}
-    .city-card{background:#fff;border-radius:18px;padding:30px 24px;box-shadow:var(--shadow);border:1px solid rgba(45,122,58,0.07);text-align:center;transition:all 0.3s;}
-    .city-card:hover{transform:translateY(-5px);border-color:var(--green-mid);}
-    .why-card{background:#fff;border-radius:20px;padding:36px 28px;box-shadow:var(--shadow);transition:transform 0.3s;}
-    .why-card:hover{transform:translateY(-6px);}
-    .why-num{font-family:'Noto Serif SC',serif;font-size:48px;font-weight:900;color:rgba(45,122,58,0.12);margin-bottom:-8px;line-height:1;}
-    .why-card h3{font-size:17px;font-weight:700;color:var(--green-dark);margin-bottom:12px;}
-    .why-card p{font-size:13px;color:var(--text-mid);line-height:1.9;font-weight:300;}
-    .flow-steps{display:flex;gap:0;margin-top:52px;position:relative;}
-    .flow-steps::before{content:'';position:absolute;top:36px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--green-light),var(--green-dark),var(--green-light));z-index:0;}
-    .flow-step{flex:1;text-align:center;padding:0 12px;position:relative;z-index:1;}
-    .flow-step-circle{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--green-dark),var(--green-mid));color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 20px;box-shadow:0 6px 20px rgba(45,122,58,0.3);}
-    .flow-step h4{font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:8px;}
-    .flow-step p{font-size:12px;color:var(--text-light);line-height:1.7;}
-    .form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
-    .form-group label{font-size:12px;color:var(--text-mid);font-weight:500;letter-spacing:0.5px;}
-    .form-group input,.form-group select,.form-group textarea{border:1.5px solid rgba(45,122,58,0.2);border-radius:10px;padding:12px 16px;font-family:'Noto Sans SC',sans-serif;font-size:14px;color:var(--text-dark);background:#fff;outline:none;transition:border-color 0.2s;}
-    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--green-dark);}
-    .form-group textarea{resize:vertical;min-height:100px;}
-    .form-submit{width:100%;background:var(--green-dark);color:#fff;border:none;cursor:pointer;padding:15px;border-radius:12px;font-family:'Noto Sans SC',sans-serif;font-size:15px;font-weight:500;letter-spacing:1px;transition:all 0.25s;}
-    .form-submit:hover{background:var(--green-mid);transform:translateY(-2px);box-shadow:0 8px 24px rgba(45,122,58,0.3);}
-    footer{background:var(--text-dark);color:rgba(255,255,255,0.7);padding:60px 8vw 30px;}
-    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:50px;margin-bottom:50px;}
-    .footer-brand img{height:44px;margin-bottom:16px;filter:brightness(0) invert(1) opacity(0.9);}
-    .footer-brand p{font-size:13px;line-height:1.9;font-weight:300;}
-    .footer-col h4{color:#fff;font-size:13px;font-weight:700;letter-spacing:1px;margin-bottom:18px;}
-    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
-    .footer-col ul li{font-size:13px;cursor:pointer;transition:color 0.2s;}
-    .footer-col ul li:hover{color:var(--yellow);}
-    .footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:28px;display:flex;align-items:center;justify-content:space-between;font-size:12px;flex-wrap:wrap;gap:12px;}
-    .yhia-text{color:var(--yellow);font-weight:700;letter-spacing:2px;}
-    @media(max-width:768px){.nav-links{display:none;}.hero-visual{display:none;}.grid2,.grid3,.grid4,.footer-grid{grid-template-columns:1fr;}.flow-steps{flex-direction:column;gap:24px;}.flow-steps::before{display:none;}.cities-grid{grid-template-columns:repeat(2,1fr);}.wechat-grid{grid-template-columns:1fr!important;}}
+    :root {
+      --forest: #2e6b47;
+      --sage: #4e9468;
+      --mint: #e8f5ee;
+      --honey: #d4943a;
+      --honey-light: #fdf3e3;
+      --coral: #e07b6a;
+      --sky: #6aaccc;
+      --lavender: #9b7fc4;
+      --cream: #fafaf7;
+      --white: #ffffff;
+      --ink: #1a2e22;
+      --mist: #6b8c75;
+      --border: rgba(46,107,71,0.1);
+      --shadow-sm: 0 2px 12px rgba(46,107,71,0.08);
+      --shadow-md: 0 8px 32px rgba(46,107,71,0.12);
+      --shadow-lg: 0 20px 60px rgba(46,107,71,0.15);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Noto Sans SC', sans-serif; background:var(--cream); color:var(--ink); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:999;
+      background: rgba(250,250,247,0.95); backdrop-filter:blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items:center; justify-content:space-between;
+      padding: 0 6vw; height: 68px;
+    }
+    .logo { display:flex; align-items:center; gap:12px; cursor:pointer; text-decoration:none; }
+    .logo img { height:42px; width:auto; }
+    .logo-text { display:flex; flex-direction:column; line-height:1.15; }
+    .logo-text .cn { font-family:'Noto Serif SC',serif; font-size:17px; font-weight:700; color:var(--forest); letter-spacing:2px; }
+    .logo-text .en { font-size:10px; color:var(--mist); letter-spacing:3px; font-weight:300; }
+    .nav-links { display:flex; gap:32px; list-style:none; align-items:center; }
+    .nav-links a {
+      text-decoration:none; font-size:14px; font-weight:400; color:var(--mist);
+      letter-spacing:0.3px; transition:color 0.2s; cursor:pointer; position:relative;
+    }
+    .nav-links a::after { content:''; position:absolute; bottom:-2px; left:0; right:0; height:1.5px; background:var(--honey); transform:scaleX(0); transition:transform 0.25s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--forest); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform:scaleX(1); }
+    .nav-cta {
+      background:var(--forest) !important; color:#fff !important;
+      padding:9px 22px; border-radius:6px; font-size:13px !important;
+      font-weight:500 !important; letter-spacing:1px !important;
+      transition:background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta::after { display:none !important; }
+    .nav-cta:hover { background:var(--sage) !important; transform:translateY(-1px) !important; }
+
+    /* ─── PAGES ─── */
+    .page { display:none; padding-top:68px; min-height:100vh; }
+    .page.active { display:block; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: calc(100vh - 68px);
+      display: grid; grid-template-columns:1fr 1fr;
+      gap: 0; overflow:hidden;
+    }
+    .hero-left {
+      display:flex; flex-direction:column; justify-content:center;
+      padding: 80px 6vw 80px 8vw;
+      position: relative;
+    }
+    .hero-left::before {
+      content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+      background: radial-gradient(circle at 0% 50%, rgba(78,148,104,0.07) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .hero-pill {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--honey-light); border:1px solid rgba(212,148,58,0.3);
+      border-radius:4px; padding:5px 14px; font-size:11px; color:var(--honey);
+      font-weight:500; letter-spacing:1.5px; margin-bottom:32px;
+      width:fit-content;
+    }
+    .hero-pill::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--honey); flex-shrink:0; }
+    .hero-h1 {
+      font-family:'Noto Serif SC',serif;
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight:900; line-height:1.2; color:var(--ink);
+      margin-bottom:24px;
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-h1 em { font-style:normal; color:var(--forest); }
+    .hero-h1 strong { color:var(--honey); font-weight:900; }
+    .hero-desc {
+      font-size:15px; line-height:2; color:var(--mist); font-weight:300;
+      max-width:460px; margin-bottom:44px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero-stats {
+      display:flex; gap:36px; margin-bottom:44px;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .stat-num {
+      font-family:'Noto Serif SC',serif; font-size:34px; font-weight:900;
+      color:var(--forest); line-height:1;
+    }
+    .stat-num sup { font-size:16px; }
+    .stat-label { font-size:11px; color:var(--mist); margin-top:4px; letter-spacing:1px; }
+    .stat-divider { width:1px; background:var(--border); align-self:stretch; }
+    .hero-btns { display:flex; gap:14px; animation: fadeUp 0.7s 0.3s ease both; }
+    .btn-solid {
+      background:var(--forest); color:#fff; padding:13px 30px;
+      border-radius:6px; border:none; cursor:pointer;
+      font-family:'Noto Sans SC',sans-serif; font-size:14px; font-weight:500;
+      letter-spacing:1px; transition:all 0.2s;
+      box-shadow: 0 4px 16px rgba(46,107,71,0.25);
+    }
+    .btn-solid:hover { background:var(--sage); transform:translateY(-2px); box-shadow:0 8px 24px rgba(46,107,71,0.3); }
+    .btn-ghost {
+      background:transparent; color:var(--forest); padding:13px 30px;
+      border-radius:6px; border:1.5px solid var(--forest); cursor:pointer;
+      font-family:'Noto Sans SC',sans-serif; font-size:14px; font-weight:500;
+      letter-spacing:1px; transition:all 0.2s;
+    }
+    .btn-ghost:hover { background:var(--mint); transform:translateY(-2px); }
+
+    .hero-right {
+      background: linear-gradient(160deg, var(--forest) 0%, #1a4a30 100%);
+      display:flex; align-items:center; justify-content:center;
+      padding:60px 5vw;
+      position:relative; overflow:hidden;
+    }
+    .hero-right::before {
+      content:'婴喜爱'; position:absolute;
+      font-family:'Noto Serif SC',serif; font-size:220px; font-weight:900;
+      color:rgba(255,255,255,0.04); line-height:1;
+      right:-20px; bottom:-20px; letter-spacing:-4px; pointer-events:none;
+    }
+    .hero-cards { display:flex; flex-direction:column; gap:16px; width:100%; max-width:340px; position:relative; z-index:1; }
+    .hero-card {
+      background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.12);
+      border-radius:12px; padding:20px 24px; display:flex; align-items:center; gap:18px;
+      transition:transform 0.25s, background 0.25s;
+    }
+    .hero-card:hover { background:rgba(255,255,255,0.14); transform:translateX(-4px); }
+    .hc-icon {
+      width:46px; height:46px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center; font-size:20px;
+      flex-shrink:0;
+    }
+    .hc-text h4 { font-size:14px; font-weight:600; color:#fff; margin-bottom:3px; }
+    .hc-text p { font-size:11px; color:rgba(255,255,255,0.6); line-height:1.5; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ─── SECTIONS ─── */
+    .sec { padding: 88px 8vw; }
+    .sec-sm { padding: 64px 8vw; }
+    .sec-cream { background:var(--cream); }
+    .sec-white { background:var(--white); }
+    .sec-forest { background:linear-gradient(135deg, #1e4430 0%, var(--forest) 100%); }
+    .sec-mint { background:var(--mint); }
+
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:10px;
+      font-size:11px; letter-spacing:3px; font-weight:500;
+      color:var(--sage); text-transform:uppercase; margin-bottom:14px;
+    }
+    .eyebrow::before { content:''; display:block; width:20px; height:1px; background:var(--sage); }
+
+    h2.sec-title {
+      font-family:'Noto Serif SC',serif;
+      font-size: clamp(24px, 3vw, 40px);
+      font-weight:700; color:var(--ink); line-height:1.25; margin-bottom:14px;
+    }
+    .sec-body {
+      font-size:14px; color:var(--mist); line-height:2; font-weight:300;
+      max-width:540px; margin-bottom:52px;
+    }
+    .center { text-align:center; }
+    .center .sec-body { margin-left:auto; margin-right:auto; }
+
+    /* ─── WHY US 4-GRID ─── */
+    .grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .feature-tile {
+      background:var(--white); border-radius:12px; padding:32px 24px; text-align:center;
+      border:1px solid var(--border); transition:all 0.25s;
+    }
+    .feature-tile:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); border-color:var(--sage); }
+    .tile-icon { font-size:32px; margin-bottom:16px; }
+    .tile-title { font-size:14px; font-weight:700; color:var(--ink); margin-bottom:8px; }
+    .tile-body { font-size:12px; color:var(--mist); line-height:1.8; }
+
+    /* ─── PRODUCT GRID ─── */
+    .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+    .product-card {
+      border-radius:14px; padding:36px 28px;
+      display:flex; flex-direction:column; gap:12px;
+      cursor:default; transition:transform 0.25s, box-shadow 0.25s;
+    }
+    .product-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); }
+    .product-icon { font-size:36px; margin-bottom:4px; }
+    .product-name { font-family:'Noto Serif SC',serif; font-size:17px; font-weight:700; color:var(--ink); }
+    .product-desc { font-size:12px; line-height:1.8; color:var(--mist); }
+
+    /* ─── STATS BAND ─── */
+    .stats-band {
+      background:linear-gradient(135deg, #1e4430 0%, var(--forest) 100%);
+      padding:60px 8vw; display:flex; align-items:center; justify-content:center; gap:0;
+    }
+    .stat-block { flex:1; text-align:center; padding:0 20px; }
+    .stat-block + .stat-block { border-left:1px solid rgba(255,255,255,0.1); }
+    .stat-big { font-family:'Noto Serif SC',serif; font-size:clamp(36px,4vw,54px); font-weight:900; color:var(--honey); line-height:1; margin-bottom:8px; }
+    .stat-big sup { font-size:20px; }
+    .stat-small { font-size:12px; color:rgba(255,255,255,0.65); letter-spacing:2px; }
+
+    /* ─── ABOUT TIMELINE ─── */
+    .timeline { display:flex; flex-direction:column; gap:0; }
+    .tl-row {
+      display:flex; gap:28px; align-items:flex-start;
+      padding:24px 0; border-bottom:1px solid var(--border);
+    }
+    .tl-row:last-child { border-bottom:none; }
+    .tl-year { font-family:'Noto Serif SC',serif; font-size:20px; font-weight:900; color:var(--forest); min-width:56px; line-height:1.2; }
+    .tl-content h4 { font-size:14px; font-weight:700; color:var(--ink); margin-bottom:5px; }
+    .tl-content p { font-size:13px; color:var(--mist); line-height:1.8; }
+
+    /* ─── VALUES ─── */
+    .value-card {
+      border-radius:14px; padding:36px 30px;
+      background:var(--white); border:1px solid var(--border);
+      position:relative; overflow:hidden; transition:all 0.25s;
+    }
+    .value-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--forest), var(--honey)); }
+    .value-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); }
+    .vc-num { font-family:'Noto Serif SC',serif; font-size:44px; font-weight:900; color:rgba(46,107,71,0.08); line-height:1; margin-bottom:-8px; }
+    .vc-title { font-size:16px; font-weight:700; color:var(--forest); margin-bottom:12px; }
+    .vc-body { font-size:13px; color:var(--mist); line-height:1.9; }
+
+    /* ─── SERVICES ─── */
+    .service-card {
+      background:var(--white); border-radius:14px; padding:40px 32px;
+      border:1px solid var(--border); transition:all 0.25s;
+      display:flex; flex-direction:column; gap:18px;
+    }
+    .service-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-md); }
+    .sc-top { display:flex; align-items:center; gap:18px; }
+    .sc-icon { width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+    .sc-title { font-family:'Noto Serif SC',serif; font-size:18px; font-weight:700; color:var(--ink); }
+    .sc-body { font-size:13px; color:var(--mist); line-height:1.9; }
+    .tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .tag { background:var(--mint); color:var(--forest); padding:4px 12px; border-radius:4px; font-size:11px; font-weight:500; }
+
+    /* ─── WECHAT SECTION ─── */
+    .wechat-section {
+      background:linear-gradient(150deg, #1a3326 0%, #255038 50%, var(--forest) 100%);
+      padding:90px 8vw; position:relative; overflow:hidden;
+    }
+    .wechat-section::before {
+      content:''; position:absolute;
+      width:480px; height:480px; border-radius:50%;
+      border:1px solid rgba(255,255,255,0.06);
+      top:-200px; right:-100px; pointer-events:none;
+    }
+    .wechat-grid { display:grid; grid-template-columns:1fr auto; gap:80px; align-items:center; position:relative; z-index:1; }
+    .wc-pill {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
+      border-radius:4px; padding:6px 18px; font-size:11px; color:rgba(255,255,255,0.9);
+      letter-spacing:2px; margin-bottom:28px;
+    }
+    .wc-title { font-family:'Noto Serif SC',serif; font-size:clamp(28px,3vw,46px); font-weight:900; color:#fff; line-height:1.25; margin-bottom:24px; }
+    .wc-desc { font-size:14px; color:rgba(255,255,255,0.75); line-height:2; margin-bottom:36px; max-width:480px; }
+    .wc-features { display:flex; flex-direction:column; gap:14px; margin-bottom:36px; }
+    .wc-feat { display:flex; align-items:center; gap:14px; }
+    .wc-feat-icon { width:38px; height:38px; border-radius:10px; background:rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+    .wc-feat span { font-size:13px; color:rgba(255,255,255,0.85); }
+    .contact-pills { display:flex; flex-direction:column; gap:10px; }
+    .contact-pill { display:inline-flex; align-items:center; gap:14px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:12px 20px; width:fit-content; }
+    .cp-icon { font-size:18px; }
+    .cp-label { font-size:10px; color:rgba(255,255,255,0.5); letter-spacing:1px; margin-bottom:2px; }
+    .cp-val { font-size:15px; font-weight:700; color:#fff; letter-spacing:0.5px; }
+    .qr-card { background:rgba(255,255,255,0.96); border-radius:20px; padding:32px 28px; text-align:center; box-shadow:0 24px 60px rgba(0,0,0,0.3); width:260px; flex-shrink:0; }
+    .qr-label { font-size:11px; color:var(--mist); letter-spacing:2px; margin-bottom:16px; }
+    .qr-img { width:180px; height:180px; border-radius:12px; background:var(--mint); display:flex; align-items:center; justify-content:center; font-size:48px; margin:0 auto 20px; overflow:hidden; }
+    .qr-img img { width:100%; height:100%; object-fit:cover; }
+    .qr-name { font-family:'Noto Serif SC',serif; font-size:17px; font-weight:700; color:var(--forest); margin-bottom:5px; }
+    .qr-hint { font-size:11px; color:var(--mist); line-height:1.7; }
+    .qr-badge { margin-top:14px; background:var(--mint); border-radius:6px; padding:9px 14px; font-size:12px; color:var(--forest); font-weight:600; letter-spacing:0.5px; }
+
+    /* ─── STORES ─── */
+    .page-hero {
+      padding:80px 8vw;
+      background:linear-gradient(135deg, #1e4430 0%, var(--forest) 100%);
+      color:#fff; position:relative; overflow:hidden;
+    }
+    .page-hero::before {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse 60% 80% at 90% 50%, rgba(78,148,104,0.15), transparent);
+      pointer-events:none;
+    }
+    .ph-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:3px; color:rgba(255,255,255,0.5); text-transform:uppercase; margin-bottom:16px; }
+    .ph-title { font-family:'Noto Serif SC',serif; font-size:clamp(28px,4vw,50px); font-weight:900; margin-bottom:16px; line-height:1.2; position:relative; }
+    .ph-desc { font-size:15px; line-height:2; opacity:0.82; font-weight:300; max-width:620px; position:relative; }
+
+    .cities-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; }
+    .city-card {
+      background:var(--white); border-radius:12px; padding:28px 22px; text-align:center;
+      border:1px solid var(--border); transition:all 0.25s;
+    }
+    .city-card:hover { transform:translateY(-3px); border-color:var(--sage); box-shadow:var(--shadow-sm); }
+    .city-icon { font-size:28px; margin-bottom:10px; }
+    .city-name { font-family:'Noto Serif SC',serif; font-size:18px; font-weight:700; color:var(--forest); margin-bottom:4px; }
+    .city-note { font-size:11px; color:var(--mist); line-height:1.6; }
+
+    .store-standard { display:flex; flex-direction:column; gap:0; }
+    .ss-row { display:flex; gap:24px; align-items:flex-start; padding:28px 0; border-bottom:1px solid var(--border); }
+    .ss-row:last-child { border-bottom:none; }
+    .ss-icon { width:48px; height:48px; border-radius:10px; background:var(--mint); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+    .ss-content h4 { font-size:15px; font-weight:700; color:var(--forest); margin-bottom:6px; }
+    .ss-content p { font-size:13px; color:var(--mist); line-height:1.8; }
+
+    /* ─── SUPPLIER ─── */
+    .why-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .why-card {
+      background:var(--white); border-radius:14px; padding:32px 26px;
+      border:1px solid var(--border); transition:all 0.25s;
+    }
+    .why-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); }
+    .why-num { font-family:'Noto Serif SC',serif; font-size:42px; font-weight:900; color:rgba(46,107,71,0.1); line-height:1; margin-bottom:-8px; }
+    .why-title { font-size:15px; font-weight:700; color:var(--forest); margin-bottom:10px; }
+    .why-body { font-size:13px; color:var(--mist); line-height:1.9; }
+
+    .flow-steps { display:flex; position:relative; margin-top:48px; gap:0; }
+    .flow-steps::before { content:''; position:absolute; top:33px; left:8%; right:8%; height:1.5px; background:linear-gradient(90deg, var(--mint), var(--sage), var(--mint)); z-index:0; }
+    .flow-step { flex:1; text-align:center; padding:0 12px; z-index:1; }
+    .fs-circle { width:66px; height:66px; border-radius:50%; background:var(--forest); color:#fff; display:flex; align-items:center; justify-content:center; font-size:22px; margin:0 auto 18px; box-shadow:0 4px 16px rgba(46,107,71,0.3); }
+    .fs-title { font-size:14px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+    .fs-body { font-size:12px; color:var(--mist); line-height:1.7; }
+
+    /* ─── CONTACT FORM ─── */
+    .contact-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:60px; align-items:start; }
+    .contact-info { display:flex; flex-direction:column; gap:0; }
+    .ci-row { display:flex; gap:14px; align-items:flex-start; padding:16px 0; border-bottom:1px solid var(--border); }
+    .ci-row:last-child { border-bottom:none; }
+    .ci-icon { width:38px; height:38px; border-radius:9px; background:var(--forest); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+    .ci-label { font-size:11px; color:var(--mist); margin-bottom:2px; letter-spacing:0.5px; }
+    .ci-val { font-size:14px; font-weight:500; color:var(--ink); line-height:1.5; }
+    .looking-for { background:var(--honey-light); border-radius:10px; padding:20px 22px; margin-top:20px; }
+    .lf-title { font-size:13px; font-weight:700; color:var(--honey); margin-bottom:10px; letter-spacing:0.5px; }
+    .lf-body { font-size:12px; color:var(--mist); line-height:2; }
+
+    .form-box { background:var(--white); border-radius:16px; padding:40px 36px; box-shadow:var(--shadow-md); border:1px solid var(--border); }
+    .form-title { font-family:'Noto Serif SC',serif; font-size:20px; font-weight:700; color:var(--ink); margin-bottom:28px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-group { display:flex; flex-direction:column; gap:5px; margin-bottom:16px; }
+    .form-group label { font-size:12px; color:var(--mist); font-weight:500; letter-spacing:0.5px; }
+    .form-group input, .form-group select, .form-group textarea {
+      border:1.5px solid rgba(46,107,71,0.15); border-radius:8px;
+      padding:11px 14px; font-family:'Noto Sans SC',sans-serif; font-size:13px;
+      color:var(--ink); background:#fff; outline:none; transition:border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--forest); }
+    .form-group textarea { resize:vertical; min-height:100px; }
+    .form-note { background:var(--honey-light); border-radius:8px; padding:12px 16px; font-size:12px; color:#9a7010; line-height:1.7; margin-bottom:16px; }
+    .form-submit {
+      width:100%; background:var(--forest); color:#fff; border:none; cursor:pointer;
+      padding:14px; border-radius:8px; font-family:'Noto Sans SC',sans-serif;
+      font-size:14px; font-weight:500; letter-spacing:1px; transition:all 0.2s;
+    }
+    .form-submit:hover { background:var(--sage); transform:translateY(-1px); box-shadow:0 6px 20px rgba(46,107,71,0.28); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background:var(--ink); color:rgba(255,255,255,0.65);
+      padding:60px 8vw 28px;
+    }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
+    .footer-brand img { height:40px; margin-bottom:14px; filter:brightness(0) invert(1) opacity(0.8); }
+    .footer-brand p { font-size:12px; line-height:1.9; font-weight:300; }
+    .footer-brand .socials { margin-top:16px; display:flex; flex-direction:column; gap:6px; }
+    .footer-brand .socials span { font-size:12px; }
+    .footer-col h4 { color:#fff; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:18px; }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .footer-col ul li { font-size:12px; cursor:pointer; transition:color 0.2s; }
+    .footer-col ul li:hover { color:var(--honey); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,0.07); padding-top:24px; display:flex; justify-content:space-between; align-items:center; font-size:11px; flex-wrap:wrap; gap:12px; }
+    .yhia-brand { color:var(--honey); font-weight:700; letter-spacing:1.5px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:900px) {
+      .nav-links { display:none; }
+      .hero { grid-template-columns:1fr; }
+      .hero-right { min-height:360px; }
+      .grid4, .grid3, .grid2, .footer-grid, .contact-grid, .wechat-grid { grid-template-columns:1fr; }
+      .why-grid { grid-template-columns:1fr 1fr; }
+      .flow-steps { flex-direction:column; gap:24px; }
+      .flow-steps::before { display:none; }
+      .cities-grid { grid-template-columns:repeat(2,1fr); }
+      .stats-band { flex-wrap:wrap; }
+      .stat-block + .stat-block { border-left:none; border-top:1px solid rgba(255,255,255,0.1); }
+      .qr-card { width:100%; max-width:300px; margin:0 auto; }
+      .form-row { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <a class="nav-logo" onclick="showPage('home')">
+  <a class="logo" onclick="showPage('home')">
     <img src="yhia_logo.png" alt="婴喜爱 YHIA"/>
+    <div class="logo-text">
+      <span class="cn">婴喜爱</span>
+      <span class="en">YHIA · 孕婴童专卖</span>
+    </div>
   </a>
   <ul class="nav-links">
     <li><a onclick="showPage('home')" id="nav-home" class="active">首页</a></li>
@@ -119,311 +429,511 @@
   </ul>
 </nav>
 
-<!-- HOME -->
+<!-- ══════════════ HOME ══════════════ -->
 <div class="page active" id="page-home">
+
+  <!-- HERO -->
   <div class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-blob hero-blob-1"></div><div class="hero-blob hero-blob-2"></div><div class="hero-blob hero-blob-3"></div>
-    <div class="hero-content">
-      <div class="hero-badge">创立于 2006 年 · 深耕孕婴童行业近二十年</div>
-      <h1 class="hero-title">给每一个<br/><span class="accent">小生命</span><br/>最好的<span class="yellow">开始</span></h1>
-      <p class="hero-sub">婴喜爱是中国东北领先的孕婴童专卖连锁品牌，以"价格平、服务优、品种全"为核心理念，现拥有直营门店 200 余家，为百万家庭提供一站式育儿服务。</p>
+    <div class="hero-left">
+      <div class="hero-pill">创立于 2006 年 · 深耕孕婴童行业近二十年</div>
+      <h1 class="hero-h1">
+        给每一个<br/>
+        <em>小生命</em><br/>
+        最好的<strong>开始</strong>
+      </h1>
+      <p class="hero-desc">婴喜爱是中国东北领先的孕婴童专卖连锁品牌，以"价格平、服务优、品种全"为核心理念，现拥有直营门店 200 余家，为百万家庭提供一站式育儿服务。</p>
       <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-num">200<span>+</span></div><div class="hero-stat-label">直营门店</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">18<span>年</span></div><div class="hero-stat-label">品牌历史</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">7<span>+</span></div><div class="hero-stat-label">覆盖城市</div></div>
+        <div class="hero-stat">
+          <div class="stat-num">200<sup>+</sup></div>
+          <div class="stat-label">直营门店</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <div class="stat-num">18<sup>年</sup></div>
+          <div class="stat-label">品牌历史</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat">
+          <div class="stat-num">7<sup>+</sup></div>
+          <div class="stat-label">覆盖城市</div>
+        </div>
       </div>
-      <div class="hero-buttons">
-        <button class="btn-primary" onclick="showPage('about')">了解更多</button>
-        <button class="btn-outline" onclick="showPage('supplier')">供应商合作</button>
+      <div class="hero-btns">
+        <button class="btn-solid" onclick="showPage('about')">了解更多</button>
+        <button class="btn-ghost" onclick="showPage('supplier')">供应商合作</button>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="hero-card"><div class="hero-card-icon" style="background:#e8f5eb;">🍼</div><div class="hero-card-text"><h4>一站式母婴服务</h4><p>奶粉、尿裤、辅食、玩具、服装一应俱全</p></div></div>
-      <div class="hero-card"><div class="hero-card-icon" style="background:#fff8e1;">🏊</div><div class="hero-card-text"><h4>婴儿游泳中心</h4><p>专业设施，提供安心的宝宝水疗体验</p></div></div>
-      <div class="hero-card"><div class="hero-card-icon" style="background:#fce4ec;">👶</div><div class="hero-card-text"><h4>专业婴儿抚触</h4><p>受过培训的专业人员，科学呵护宝宝成长</p></div></div>
+    <div class="hero-right">
+      <div class="hero-cards">
+        <div class="hero-card">
+          <div class="hc-icon" style="background:rgba(232,245,238,0.2);">🍼</div>
+          <div class="hc-text">
+            <h4>一站式母婴服务</h4>
+            <p>奶粉、尿裤、辅食、玩具、服装一应俱全</p>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hc-icon" style="background:rgba(253,243,227,0.2);">🏊</div>
+          <div class="hc-text">
+            <h4>婴儿游泳中心</h4>
+            <p>专业设施，提供安心的宝宝水疗体验</p>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hc-icon" style="background:rgba(224,123,106,0.2);">👶</div>
+          <div class="hc-text">
+            <h4>专业婴儿抚触</h4>
+            <p>受过培训的专业人员，科学呵护宝宝成长</p>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hc-icon" style="background:rgba(106,172,204,0.2);">🎮</div>
+          <div class="hc-text">
+            <h4>爱乐游游乐体验</h4>
+            <p>0–6岁宝宝专属互动游乐区域</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <section style="background:var(--cream);">
-    <div style="text-align:center;margin-bottom:52px;">
-      <div class="section-label">我们的优势</div>
-      <h2 class="section-title" style="text-align:center;">为什么选择婴喜爱</h2>
-      <p class="section-sub" style="margin:0 auto;text-align:center;">近二十年深耕孕婴童行业，我们深知每一位父母对宝宝的期望与用心</p>
+  <!-- WHY US -->
+  <section class="sec sec-white">
+    <div class="center" style="margin-bottom:48px;">
+      <div class="eyebrow" style="justify-content:center;">我们的优势</div>
+      <h2 class="sec-title">为什么选择婴喜爱</h2>
+      <p class="sec-body">近二十年深耕孕婴童行业，我们深知每一位父母对宝宝的期望与用心</p>
     </div>
     <div class="grid4">
-      <div class="card-white" style="text-align:center;padding:32px 22px;"><div style="font-size:36px;margin-bottom:14px;">💰</div><h3 style="font-size:15px;font-weight:700;margin-bottom:8px;">价格实惠</h3><p style="font-size:12px;color:var(--text-light);line-height:1.7;">直营模式，优化供应链，为家庭提供最具性价比的母婴好物</p></div>
-      <div class="card-white" style="text-align:center;padding:32px 22px;"><div style="font-size:36px;margin-bottom:14px;">⭐</div><h3 style="font-size:15px;font-weight:700;margin-bottom:8px;">服务卓越</h3><p style="font-size:12px;color:var(--text-light);line-height:1.7;">专业导购团队，每位员工接受系统培训，提供贴心一对一服务</p></div>
-      <div class="card-white" style="text-align:center;padding:32px 22px;"><div style="font-size:36px;margin-bottom:14px;">📦</div><h3 style="font-size:15px;font-weight:700;margin-bottom:8px;">品种齐全</h3><p style="font-size:12px;color:var(--text-light);line-height:1.7;">涵盖孕期至6岁婴幼儿所需全品类商品，满足一站式购物需求</p></div>
-      <div class="card-white" style="text-align:center;padding:32px 22px;"><div style="font-size:36px;margin-bottom:14px;">🏪</div><h3 style="font-size:15px;font-weight:700;margin-bottom:8px;">会员体系</h3><p style="font-size:12px;color:var(--text-light);line-height:1.7;">完善的会员制度，积分兑换、专属优惠，让每次购物都物超所值</p></div>
+      <div class="feature-tile">
+        <div class="tile-icon">💰</div>
+        <div class="tile-title">价格实惠</div>
+        <div class="tile-body">直营模式，优化供应链，为家庭提供最具性价比的母婴好物</div>
+      </div>
+      <div class="feature-tile">
+        <div class="tile-icon">⭐</div>
+        <div class="tile-title">服务卓越</div>
+        <div class="tile-body">专业导购团队，每位员工接受系统培训，提供贴心一对一服务</div>
+      </div>
+      <div class="feature-tile">
+        <div class="tile-icon">📦</div>
+        <div class="tile-title">品种齐全</div>
+        <div class="tile-body">涵盖孕期至6岁婴幼儿所需全品类商品，满足一站式购物需求</div>
+      </div>
+      <div class="feature-tile">
+        <div class="tile-icon">🏪</div>
+        <div class="tile-title">会员体系</div>
+        <div class="tile-body">完善会员制度，积分兑换、专属优惠，让每次购物都物超所值</div>
+      </div>
     </div>
   </section>
 
-  <section>
-    <div class="section-label">商品系列</div>
-    <h2 class="section-title">精选母婴好物</h2>
-    <p class="section-sub">与国内外知名品牌合作，严选品质保障，覆盖孕及6岁内宝宝日常所需</p>
-    <div class="grid3" style="gap:24px;">
-      <div style="border-radius:20px;padding:40px 30px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(135deg,#e8f5eb,#c8e6cc);transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"><div style="font-size:40px;">🍼</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;">奶粉 · 辅食</h3><p style="font-size:12px;color:var(--text-mid);line-height:1.7;">精选国内外品牌奶粉及辅食零食，按阶段科学喂养</p></div>
-      <div style="border-radius:20px;padding:40px 30px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(135deg,#fff8e1,#ffecb3);transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"><div style="font-size:40px;">🧷</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;">尿裤 · 护理</h3><p style="font-size:12px;color:var(--text-mid);line-height:1.7;">优质纸尿裤、护臀膏及洗护用品，温柔守护宝宝肌肤</p></div>
-      <div style="border-radius:20px;padding:40px 30px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(135deg,#fce4ec,#f8bbd0);transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"><div style="font-size:40px;">🧸</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;">玩具 · 早教</h3><p style="font-size:12px;color:var(--text-mid);line-height:1.7;">启智玩具与早教产品，陪伴宝宝快乐成长每一步</p></div>
-      <div style="border-radius:20px;padding:40px 30px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(135deg,#e3f2fd,#bbdefb);transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"><div style="font-size:40px;">🛏️</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;">车床 · 家具</h3><p style="font-size:12px;color:var(--text-mid);line-height:1.7;">安全标准婴儿床、推车及儿童家具，打造舒适成长空间</p></div>
-      <div style="border-radius:20px;padding:40px 30px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(135deg,#f3e5f5,#e1bee7);transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"><div style="font-size:40px;">👗</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;">服装 · 棉品</h3><p style="font-size:12px;color:var(--text-mid);line-height:1.7;">纯棉婴幼儿服装，柔软亲肤，四季舒适穿搭一站搞定</p></div>
-      <div style="border-radius:20px;padding:40px 30px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(135deg,#fff3e0,#ffe0b2);transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"><div style="font-size:40px;">🤱</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;">孕期 · 哺乳</h3><p style="font-size:12px;color:var(--text-mid);line-height:1.7;">孕妈专区，从备孕到哺乳期全程营养与护理产品支持</p></div>
+  <!-- PRODUCTS -->
+  <section class="sec sec-cream">
+    <div class="eyebrow">商品系列</div>
+    <h2 class="sec-title">精选母婴好物</h2>
+    <p class="sec-body">与国内外知名品牌合作，严选品质保障，覆盖孕期及6岁内宝宝日常所需</p>
+    <div class="grid3">
+      <div class="product-card" style="background:linear-gradient(135deg,#ddf0e4,#c2dfc9);">
+        <div class="product-icon">🍼</div>
+        <div class="product-name">奶粉 · 辅食</div>
+        <div class="product-desc">精选国内外品牌奶粉及辅食零食，按阶段科学喂养</div>
+      </div>
+      <div class="product-card" style="background:linear-gradient(135deg,#fef5d8,#f5e4a0);">
+        <div class="product-icon">🧷</div>
+        <div class="product-name">尿裤 · 护理</div>
+        <div class="product-desc">优质纸尿裤、护臀膏及洗护用品，温柔守护宝宝肌肤</div>
+      </div>
+      <div class="product-card" style="background:linear-gradient(135deg,#fae0e8,#f0c0d2);">
+        <div class="product-icon">🧸</div>
+        <div class="product-name">玩具 · 早教</div>
+        <div class="product-desc">启智玩具与早教产品，陪伴宝宝快乐成长每一步</div>
+      </div>
+      <div class="product-card" style="background:linear-gradient(135deg,#dceefa,#b8d8f5);">
+        <div class="product-icon">🛏️</div>
+        <div class="product-name">车床 · 家具</div>
+        <div class="product-desc">安全标准婴儿床、推车及儿童家具，打造舒适成长空间</div>
+      </div>
+      <div class="product-card" style="background:linear-gradient(135deg,#f0e2f5,#ddbde8);">
+        <div class="product-icon">👗</div>
+        <div class="product-name">服装 · 棉品</div>
+        <div class="product-desc">纯棉婴幼儿服装，柔软亲肤，四季舒适穿搭一站搞定</div>
+      </div>
+      <div class="product-card" style="background:linear-gradient(135deg,#fef2d8,#f8dea8);">
+        <div class="product-icon">🤱</div>
+        <div class="product-name">孕期 · 哺乳</div>
+        <div class="product-desc">孕妈专区，从备孕到哺乳期全程营养与护理产品支持</div>
+      </div>
     </div>
   </section>
 
-  <div style="background:linear-gradient(135deg,var(--green-dark) 0%,#1a5226 100%);padding:80px 8vw;color:#fff;text-align:center;">
-    <div class="section-label" style="color:rgba(255,255,255,0.6);justify-content:center;"><span style="background:rgba(255,255,255,0.2);"></span>品牌实力<span style="background:rgba(255,255,255,0.2);"></span></div>
-    <h2 class="section-title" style="color:#fff;text-align:center;margin-bottom:52px;">数字见证信任</h2>
-    <div class="grid4">
-      <div><div style="font-family:'Noto Serif SC',serif;font-size:52px;font-weight:900;color:var(--yellow);line-height:1;margin-bottom:8px;">200<sup style="font-size:22px;">+</sup></div><p style="font-size:13px;opacity:0.8;letter-spacing:1px;">直营连锁门店</p></div>
-      <div><div style="font-family:'Noto Serif SC',serif;font-size:52px;font-weight:900;color:var(--yellow);line-height:1;margin-bottom:8px;">2006</div><p style="font-size:13px;opacity:0.8;letter-spacing:1px;">品牌创立年份</p></div>
-      <div><div style="font-family:'Noto Serif SC',serif;font-size:52px;font-weight:900;color:var(--yellow);line-height:1;margin-bottom:8px;">7<sup style="font-size:22px;">+</sup></div><p style="font-size:13px;opacity:0.8;letter-spacing:1px;">覆盖城市</p></div>
-      <div><div style="font-family:'Noto Serif SC',serif;font-size:52px;font-weight:900;color:var(--yellow);line-height:1;margin-bottom:8px;">∞</div><p style="font-size:13px;opacity:0.8;letter-spacing:1px;">守护家庭的心</p></div>
+  <!-- STATS BAND -->
+  <div class="stats-band">
+    <div class="stat-block">
+      <div class="stat-big">200<sup>+</sup></div>
+      <div class="stat-small">直营连锁门店</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-big">2006</div>
+      <div class="stat-small">品牌创立年份</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-big">7<sup>+</sup></div>
+      <div class="stat-small">覆盖城市</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-big">∞</div>
+      <div class="stat-small">守护家庭的心</div>
     </div>
   </div>
-</div>
 
-<!-- ABOUT -->
+  <!-- WECHAT MINI PROGRAM -->
+  <div class="wechat-section">
+    <div class="wechat-grid">
+      <div>
+        <div class="wc-pill">💬 微信小程序 · 线上购物</div>
+        <div class="wc-title">扫码即购<br/>随时随地下单</div>
+        <p class="wc-desc">婴喜爱微信小程序正式上线！无需下载 App，打开微信扫一扫，即可进入婴喜爱官方小程序，浏览全品类母婴好物、一键下单，配送上门。</p>
+        <div class="wc-features">
+          <div class="wc-feat"><div class="wc-feat-icon">🛒</div><span>全品类母婴商品，一站式在线选购</span></div>
+          <div class="wc-feat"><div class="wc-feat-icon">🚚</div><span>快速配送，足不出户送货上门</span></div>
+          <div class="wc-feat"><div class="wc-feat-icon">🎁</div><span>会员积分与专属优惠，实时同步享用</span></div>
+          <div class="wc-feat"><div class="wc-feat-icon">📱</div><span>微信内直接使用，无需额外下载</span></div>
+        </div>
+        <div class="contact-pills">
+          <div class="contact-pill">
+            <span class="cp-icon">💬</span>
+            <div><div class="cp-label">微信 / 手机 / 短信</div><div class="cp-val">+86 186 0434 5110</div></div>
+          </div>
+          <div class="contact-pill">
+            <span class="cp-icon">📕</span>
+            <div><div class="cp-label">小红书官方账号</div><div class="cp-val">YHiA888</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="qr-card">
+        <div class="qr-label">微信扫一扫</div>
+        <div class="qr-img">
+          <img src="yhia_QR.jpg" alt="婴喜爱微信小程序二维码" onerror="this.style.display='none';this.parentNode.innerHTML='📱'"/>
+        </div>
+        <div class="qr-name">婴喜爱小程序</div>
+        <div class="qr-hint">用微信扫描上方二维码<br/>即可进入婴喜爱官方小程序</div>
+        <div class="qr-badge">更懂宝宝的喜爱 🍀</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /home -->
+
+
+<!-- ══════════════ ABOUT ══════════════ -->
 <div class="page" id="page-about">
-  <div style="background:linear-gradient(135deg,var(--green-dark) 0%,var(--green-mid) 100%);padding:80px 8vw;color:#fff;position:relative;overflow:hidden;">
-    <div style="position:absolute;right:5vw;bottom:-20px;font-family:'Noto Serif SC',serif;font-size:160px;font-weight:900;opacity:0.07;color:#fff;letter-spacing:-4px;line-height:1;pointer-events:none;">婴喜爱</div>
-    <div class="section-label" style="color:rgba(255,255,255,0.6);"><span style="background:rgba(255,255,255,0.3)"></span>关于我们<span style="background:rgba(255,255,255,0.3)"></span></div>
-    <h1 style="font-family:'Noto Serif SC',serif;font-size:clamp(30px,4vw,52px);font-weight:900;margin-bottom:20px;">陪伴中国家庭<br/>近二十年的温暖品牌</h1>
-    <p style="font-size:16px;line-height:2;max-width:600px;opacity:0.9;font-weight:300;">婴喜爱 YHIA，创立于2006年，是一家以"价格平、服务优、品种全"为核心理念的会员制孕婴童专卖连锁企业。我们深信每一个宝宝都值得最好的呵护，每一个家庭都值得最贴心的陪伴。</p>
+  <div class="page-hero">
+    <div class="ph-eyebrow">关于我们</div>
+    <h1 class="ph-title">陪伴中国家庭<br/>近二十年的温暖品牌</h1>
+    <p class="ph-desc">婴喜爱 YHIA，创立于2006年，是一家以"价格平、服务优、品种全"为核心理念的会员制孕婴童专卖连锁企业。我们深信每一个宝宝都值得最好的呵护，每一个家庭都值得最贴心的陪伴。</p>
   </div>
-  <section>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
-      <div>
-        <div class="section-label">品牌故事</div>
-        <h2 class="section-title">从一家店到<br/>二百余家门店的成长历程</h2>
-        <p style="font-size:15px;line-height:2.1;color:var(--text-mid);margin-bottom:20px;font-weight:300;">2006年，婴喜爱在长春诞生，怀揣着为每一个中国家庭提供高品质、高性价比母婴产品的梦想，从最初的一家店出发，逐步成长为东北地区最具影响力的孕婴童连锁品牌。</p>
-        <p style="font-size:15px;line-height:2.1;color:var(--text-mid);margin-bottom:20px;font-weight:300;">我们坚持直营模式，严格把控每一个门店的服务品质与商品标准。与国内外知名品牌厂商深度合作，构建起完善的供应链体系，确保每一款产品都经得起父母挑剔的眼光。</p>
-        <p style="font-size:15px;line-height:2.1;color:var(--text-mid);margin-bottom:24px;font-weight:300;">今天，婴喜爱的门店遍布长春、四平、吉林、通辽、梅河口、通化、伊通等多个城市，200余家直营门店的背后，是数以百万计信任我们的家庭。</p>
-        <button class="btn-primary" onclick="showPage('stores')">查看门店网络 →</button>
-      </div>
-      <div>
-        <div style="display:flex;flex-direction:column;">
-          <div style="display:flex;gap:24px;align-items:flex-start;padding:24px 0;border-bottom:1px solid rgba(45,122,58,0.1);"><div style="font-family:'Noto Serif SC',serif;font-size:22px;font-weight:900;color:var(--green-dark);min-width:60px;line-height:1;">2006</div><div><h4 style="font-size:15px;font-weight:700;margin-bottom:6px;">品牌创立</h4><p style="font-size:13px;color:var(--text-light);line-height:1.7;">婴喜爱在长春市创立，首家直营门店开业，以会员制模式开创东北孕婴童连锁新模式</p></div></div>
-          <div style="display:flex;gap:24px;align-items:flex-start;padding:24px 0;border-bottom:1px solid rgba(45,122,58,0.1);"><div style="font-family:'Noto Serif SC',serif;font-size:22px;font-weight:900;color:var(--green-dark);min-width:60px;line-height:1;">2010</div><div><h4 style="font-size:15px;font-weight:700;margin-bottom:6px;">快速扩张</h4><p style="font-size:13px;color:var(--text-light);line-height:1.7;">品牌影响力持续提升，门店网络向吉林市、四平市稳步扩展，服务更多东北家庭</p></div></div>
-          <div style="display:flex;gap:24px;align-items:flex-start;padding:24px 0;border-bottom:1px solid rgba(45,122,58,0.1);"><div style="font-family:'Noto Serif SC',serif;font-size:22px;font-weight:900;color:var(--green-dark);min-width:60px;line-height:1;">2015</div><div><h4 style="font-size:15px;font-weight:700;margin-bottom:6px;">服务升级</h4><p style="font-size:13px;color:var(--text-light);line-height:1.7;">推出婴儿游泳、专业抚触等增值服务，打造真正意义上的一站式母婴服务中心</p></div></div>
-          <div style="display:flex;gap:24px;align-items:flex-start;padding:24px 0;border-bottom:1px solid rgba(45,122,58,0.1);"><div style="font-family:'Noto Serif SC',serif;font-size:22px;font-weight:900;color:var(--green-dark);min-width:60px;line-height:1;">2020</div><div><h4 style="font-size:15px;font-weight:700;margin-bottom:6px;">跨区发展</h4><p style="font-size:13px;color:var(--text-light);line-height:1.7;">进入通辽市、梅河口市、通化市等新兴市场，品牌覆盖范围持续突破</p></div></div>
-          <div style="display:flex;gap:24px;align-items:flex-start;padding:24px 0;"><div style="font-family:'Noto Serif SC',serif;font-size:22px;font-weight:900;color:var(--green-dark);min-width:60px;line-height:1;">2026</div><div><h4 style="font-size:15px;font-weight:700;margin-bottom:6px;">200+ 门店</h4><p style="font-size:13px;color:var(--text-light);line-height:1.7;">直营门店突破200家，成为东北地区规模最大的孕婴童连锁品牌之一</p></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section style="background:var(--cream);">
-    <div style="text-align:center;margin-bottom:52px;"><div class="section-label">核心理念</div><h2 class="section-title" style="text-align:center;">我们的价值观</h2></div>
-    <div class="grid3">
-      <div class="card-white value-card"><div style="font-size:36px;margin-bottom:18px;">💚</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--green-dark);margin-bottom:10px;">以家庭为中心</h3><p style="font-size:13px;color:var(--text-mid);line-height:1.8;font-weight:300;">每一个决策都从父母和宝宝的真实需求出发，而非商业利益优先</p></div>
-      <div class="card-white value-card"><div style="font-size:36px;margin-bottom:18px;">🏆</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--green-dark);margin-bottom:10px;">品质无妥协</h3><p style="font-size:13px;color:var(--text-mid);line-height:1.8;font-weight:300;">严格的选品标准与供应商审核机制，确保每件商品都安全可信赖</p></div>
-      <div class="card-white value-card"><div style="font-size:36px;margin-bottom:18px;">🤝</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--green-dark);margin-bottom:10px;">诚信长久经营</h3><p style="font-size:13px;color:var(--text-mid);line-height:1.8;font-weight:300;">近二十年的信誉积累，是我们最宝贵的资产，也是对每位顾客的承诺</p></div>
-      <div class="card-white value-card"><div style="font-size:36px;margin-bottom:18px;">📚</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--green-dark);margin-bottom:10px;">专业赋能服务</h3><p style="font-size:13px;color:var(--text-mid);line-height:1.8;font-weight:300;">持续培训专业团队，让每位店员都成为父母最信赖的育儿顾问</p></div>
-      <div class="card-white value-card"><div style="font-size:36px;margin-bottom:18px;">🌱</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--green-dark);margin-bottom:10px;">共同成长</h3><p style="font-size:13px;color:var(--text-mid);line-height:1.8;font-weight:300;">与供应商、员工、家庭客户共同成长，构建可持续的母婴生态圈</p></div>
-      <div class="card-white value-card"><div style="font-size:36px;margin-bottom:18px;">🌟</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--green-dark);margin-bottom:10px;">不断创新</h3><p style="font-size:13px;color:var(--text-mid);line-height:1.8;font-weight:300;">持续引进新品类与服务，紧跟年轻父母的需求变化，创造更大价值</p></div>
-    </div>
-  </section>
-</div>
 
-<!-- SERVICES -->
+  <section class="sec sec-white">
+    <div class="grid2" style="align-items:center;">
+      <div>
+        <div class="eyebrow">品牌故事</div>
+        <h2 class="sec-title">从一家店到<br/>二百余家门店的成长历程</h2>
+        <p style="font-size:14px;line-height:2.1;color:var(--mist);margin-bottom:18px;font-weight:300;">2006年，婴喜爱在长春诞生，怀揣着为每一个中国家庭提供高品质、高性价比母婴产品的梦想，从最初的一家店出发，逐步成长为东北地区最具影响力的孕婴童连锁品牌。</p>
+        <p style="font-size:14px;line-height:2.1;color:var(--mist);margin-bottom:18px;font-weight:300;">我们坚持直营模式，严格把控每一个门店的服务品质与商品标准。与国内外知名品牌厂商深度合作，构建起完善的供应链体系，确保每一款产品都经得起父母挑剔的眼光。</p>
+        <p style="font-size:14px;line-height:2.1;color:var(--mist);margin-bottom:28px;font-weight:300;">今天，婴喜爱的门店遍布长春、四平、吉林、通辽、梅河口、通化、伊通等多个城市，200余家直营门店的背后，是数以百万计信任我们的家庭。</p>
+        <button class="btn-solid" onclick="showPage('stores')">查看门店网络 →</button>
+      </div>
+      <div class="timeline">
+        <div class="tl-row"><div class="tl-year">2006</div><div class="tl-content"><h4>品牌创立</h4><p>婴喜爱在长春市创立，首家直营门店开业，以会员制模式开创东北孕婴童连锁新模式</p></div></div>
+        <div class="tl-row"><div class="tl-year">2010</div><div class="tl-content"><h4>快速扩张</h4><p>品牌影响力持续提升，门店网络向吉林市、四平市稳步扩展，服务更多东北家庭</p></div></div>
+        <div class="tl-row"><div class="tl-year">2015</div><div class="tl-content"><h4>服务升级</h4><p>推出婴儿游泳、专业抚触等增值服务，打造真正意义上的一站式母婴服务中心</p></div></div>
+        <div class="tl-row"><div class="tl-year">2020</div><div class="tl-content"><h4>跨区发展</h4><p>进入通辽市、梅河口市、通化市等新兴市场，品牌覆盖范围持续突破</p></div></div>
+        <div class="tl-row"><div class="tl-year">2024</div><div class="tl-content"><h4>200+ 门店</h4><p>直营门店突破200家，成为东北地区规模最大的孕婴童连锁品牌之一</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-cream">
+    <div class="center" style="margin-bottom:48px;">
+      <div class="eyebrow" style="justify-content:center;">核心价值观</div>
+      <h2 class="sec-title">三大核心理念</h2>
+    </div>
+    <div class="grid3">
+      <div class="value-card">
+        <div class="vc-num">01</div>
+        <div class="vc-title">价格平</div>
+        <div class="vc-body">直营连锁模式，优化供应链成本，让每一位家庭都能以合理的价格买到放心的母婴好物，真正做到让利于民。</div>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">02</div>
+        <div class="vc-title">服务优</div>
+        <div class="vc-body">每位员工均经过系统专业培训，从商品知识到育儿指导，以真诚耐心的态度为每一个家庭提供超预期的服务体验。</div>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">03</div>
+        <div class="vc-title">品种全</div>
+        <div class="vc-body">覆盖孕期至6岁婴幼儿全成长阶段所需商品品类，从日常护理到早教益智，一站式满足家庭全方位育儿需求。</div>
+      </div>
+    </div>
+  </section>
+</div><!-- /about -->
+
+
+<!-- ══════════════ SERVICES ══════════════ -->
 <div class="page" id="page-services">
-  <div style="background:var(--green-light);padding:70px 8vw;">
-    <div class="section-label">服务项目</div>
-    <h1 class="section-title">一站式母婴服务体验</h1>
-    <p class="section-sub">婴喜爱不仅是一家母婴产品零售店，更是一个全方位的育儿服务中心。<br/>我们为孕期妈妈到6岁宝宝提供完整的产品与专业服务支持。</p>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:80px 8vw;">
-    <div class="service-card"><div class="service-card-top"><div class="service-icon-wrap" style="background:#e8f5eb;">🛍️</div><h3>精品母婴零售</h3></div><p>涵盖奶粉、尿裤、辅食、玩具、服装、洗护、孕期用品等全品类商品，与国内外知名品牌深度合作，严选每一款上架产品。专业导购一对一讲解，让每次选购都省心省力。</p><div class="service-tags"><span class="tag">国内外大牌</span><span class="tag">正品保障</span><span class="tag">全品类覆盖</span><span class="tag">专业导购</span></div></div>
-    <div class="service-card"><div class="service-card-top"><div class="service-icon-wrap" style="background:#e3f2fd;">🏊</div><h3>婴儿游泳中心</h3></div><p>专业级别的婴儿游泳设施，水温恒温管理，配备受过专业培训的服务人员全程陪护。婴儿游泳有助于促进宝宝身体发育、增强体质免疫力，让宝宝在安全快乐中茁壮成长。</p><div class="service-tags"><span class="tag">恒温水池</span><span class="tag">专业陪护</span><span class="tag">促进发育</span><span class="tag">安全第一</span></div></div>
-    <div class="service-card"><div class="service-card-top"><div class="service-icon-wrap" style="background:#fce4ec;">👶</div><h3>专业婴儿抚触</h3></div><p>由受过系统培训的专业抚触师操作，通过科学的抚触手法帮助宝宝缓解肠胀气、促进睡眠、增强亲子情感连接。每一次抚触都是对宝宝最温柔的爱。</p><div class="service-tags"><span class="tag">专业抚触师</span><span class="tag">缓解胀气</span><span class="tag">促进睡眠</span><span class="tag">亲子情感</span></div></div>
-    <div class="service-card"><div class="service-card-top"><div class="service-icon-wrap" style="background:#fff8e1;">🎮</div><h3>爱乐游游乐体验</h3></div><p>专为0-6岁婴幼儿设计的互动游乐区域，安全软体设施，激发宝宝探索欲与创造力。在游戏中学习，在快乐中成长，让每次来婴喜爱都成为宝宝期待的探险。</p><div class="service-tags"><span class="tag">0-6岁适龄</span><span class="tag">安全软体</span><span class="tag">启智早教</span><span class="tag">快乐探索</span></div></div>
-    <div class="service-card"><div class="service-card-top"><div class="service-icon-wrap" style="background:#f3e5f5;">🎗️</div><h3>会员专属权益</h3></div><p>完善的会员制度，注册即享多重礼遇。积分消费兑换、生日月特别优惠、新品优先体验、育儿知识讲座邀请等，让每一位家庭成为婴喜爱大家庭的重要一员。</p><div class="service-tags"><span class="tag">积分兑换</span><span class="tag">生日礼遇</span><span class="tag">专属折扣</span><span class="tag">育儿讲座</span></div></div>
-    <div class="service-card"><div class="service-card-top"><div class="service-icon-wrap" style="background:#e8f5eb;">📞</div><h3>育儿咨询服务</h3></div><p>每家门店都配有经过专业培训的育儿顾问，为新手父母提供从新生儿护理、喂养指导到早期成长发育的全方位咨询。科学育儿，从婴喜爱开始。</p><div class="service-tags"><span class="tag">专业顾问</span><span class="tag">喂养指导</span><span class="tag">成长咨询</span><span class="tag">免费服务</span></div></div>
+  <div class="page-hero">
+    <div class="ph-eyebrow">服务项目</div>
+    <h1 class="ph-title">一站式母婴服务体验</h1>
+    <p class="ph-desc">婴喜爱不仅是一家母婴产品零售店，更是一个全方位的育儿服务中心。我们为孕期妈妈到6岁宝宝提供完整的产品与专业服务支持。</p>
   </div>
 
-  <!-- WeChat Mini Program -->
-  <section style="background:linear-gradient(135deg,#1a2e1c 0%,#2d7a3a 55%,#4aaa5a 100%);padding:90px 8vw;position:relative;overflow:hidden;">
-    <div style="position:absolute;width:560px;height:560px;border-radius:50%;border:1px solid rgba(255,255,255,0.05);top:-160px;right:-160px;pointer-events:none;"></div>
-    <div style="position:absolute;width:320px;height:320px;border-radius:50%;border:1px solid rgba(255,255,255,0.05);top:-40px;right:-40px;pointer-events:none;"></div>
-    <div style="position:absolute;width:400px;height:400px;border-radius:50%;border:1px solid rgba(255,255,255,0.05);bottom:-120px;left:4%;pointer-events:none;"></div>
-    <div class="wechat-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1;">
-      <!-- Left -->
-      <div>
-        <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:24px;padding:7px 22px;font-size:12px;color:rgba(255,255,255,0.9);letter-spacing:2px;margin-bottom:28px;">💬&nbsp;微信小程序 · 线上购物</div>
-        <h2 style="font-family:'Noto Serif SC',serif;font-size:clamp(28px,3.5vw,46px);font-weight:900;color:#fff;line-height:1.25;margin-bottom:24px;">扫码即购<br/>随时随地下单</h2>
-        <p style="font-size:15px;color:rgba(255,255,255,0.82);line-height:2.1;font-weight:300;margin-bottom:36px;max-width:460px;">婴喜爱微信小程序正式上线！无需下载 App，打开微信扫一扫，即可进入婴喜爱官方小程序，浏览全品类母婴好物、一键下单，配送上门。</p>
-        <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:40px;">
-          <div style="display:flex;align-items:center;gap:14px;"><div style="width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🛒</div><span style="font-size:14px;color:rgba(255,255,255,0.88);line-height:1.6;">全品类母婴商品，一站式在线选购</span></div>
-          <div style="display:flex;align-items:center;gap:14px;"><div style="width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🚚</div><span style="font-size:14px;color:rgba(255,255,255,0.88);line-height:1.6;">快速配送，足不出户送货上门</span></div>
-          <div style="display:flex;align-items:center;gap:14px;"><div style="width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎁</div><span style="font-size:14px;color:rgba(255,255,255,0.88);line-height:1.6;">会员积分与专属优惠，实时同步享用</span></div>
-          <div style="display:flex;align-items:center;gap:14px;"><div style="width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📱</div><span style="font-size:14px;color:rgba(255,255,255,0.88);line-height:1.6;">微信内直接使用，无需额外下载</span></div>
-        </div>
-        <!-- Contact pills -->
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:inline-flex;align-items:center;gap:14px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:14px 22px;">
-            <span style="font-size:22px;">💬</span>
-            <div><div style="font-size:11px;color:rgba(255,255,255,0.55);margin-bottom:3px;letter-spacing:1px;">微信 / 手机 / 短信</div><div style="font-size:17px;font-weight:700;color:#fff;letter-spacing:1px;">+86 186 0434 5110</div></div>
-          </div>
-          <div style="display:inline-flex;align-items:center;gap:14px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:14px 22px;">
-            <span style="font-size:22px;">📕</span>
-            <div><div style="font-size:11px;color:rgba(255,255,255,0.55);margin-bottom:3px;letter-spacing:1px;">小红书官方账号</div><div style="font-size:17px;font-weight:700;color:#fff;letter-spacing:2px;">YHiA888</div></div>
-          </div>
-        </div>
+  <section class="sec sec-white">
+    <div class="grid2">
+      <div class="service-card">
+        <div class="sc-top"><div class="sc-icon" style="background:#ddf0e4;">🛍️</div><div class="sc-title">精品母婴零售</div></div>
+        <div class="sc-body">涵盖奶粉、尿裤、辅食、玩具、服装、洗护、孕期用品等全品类商品，与国内外知名品牌深度合作，严选每一款上架产品。专业导购一对一讲解，让每次选购都省心省力。</div>
+        <div class="tags"><span class="tag">国内外大牌</span><span class="tag">正品保障</span><span class="tag">全品类覆盖</span><span class="tag">专业导购</span></div>
       </div>
-      <!-- Right: QR -->
-      <div style="display:flex;justify-content:center;">
-        <div style="background:rgba(255,255,255,0.97);border-radius:28px;padding:36px 32px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.35);max-width:300px;width:100%;">
-          <div style="font-size:12px;color:#7a9e7d;letter-spacing:2px;margin-bottom:18px;font-weight:500;text-transform:uppercase;">微信扫一扫</div>
-          <div style="border-radius:16px;overflow:hidden;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,0.1);">
-            <img src="yhia_QR.jpg" alt="婴喜爱微信小程序二维码" style="width:100%;display:block;"/>
-          </div>
-          <div style="font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700;color:#2d7a3a;margin-bottom:6px;">婴喜爱小程序</div>
-          <div style="font-size:12px;color:#7a9e7d;line-height:1.8;">用微信扫描上方二维码<br/>即可进入婴喜爱官方小程序</div>
-          <div style="margin-top:18px;background:#e8f5eb;border-radius:10px;padding:10px 16px;font-size:13px;color:#2d7a3a;font-weight:600;letter-spacing:1px;">更懂宝宝的喜爱 🍀</div>
-        </div>
+      <div class="service-card">
+        <div class="sc-top"><div class="sc-icon" style="background:#dceefa;">🏊</div><div class="sc-title">婴儿游泳中心</div></div>
+        <div class="sc-body">专业级别的婴儿游泳设施，水温恒温管理，配备受过专业培训的服务人员全程陪护。婴儿游泳有助于促进宝宝身体发育、增强体质免疫力，让宝宝在安全快乐中茁壮成长。</div>
+        <div class="tags"><span class="tag">恒温水池</span><span class="tag">专业陪护</span><span class="tag">促进发育</span><span class="tag">安全第一</span></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-top"><div class="sc-icon" style="background:#fae0e8;">👶</div><div class="sc-title">专业婴儿抚触</div></div>
+        <div class="sc-body">由受过系统培训的专业抚触师操作，通过科学的抚触手法帮助宝宝缓解肠胀气、促进睡眠、增强亲子情感连接。每一次抚触都是对宝宝最温柔的爱。</div>
+        <div class="tags"><span class="tag">专业抚触师</span><span class="tag">缓解胀气</span><span class="tag">促进睡眠</span><span class="tag">亲子情感</span></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-top"><div class="sc-icon" style="background:#fff8e1;">🎮</div><div class="sc-title">爱乐游游乐体验</div></div>
+        <div class="sc-body">专为0-6岁婴幼儿设计的互动游乐区域，安全软体设施，激发宝宝探索欲与创造力。在游戏中学习，在快乐中成长，让每次来婴喜爱都成为宝宝期待的探险。</div>
+        <div class="tags"><span class="tag">0-6岁适龄</span><span class="tag">安全软体</span><span class="tag">启智早教</span><span class="tag">快乐探索</span></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-top"><div class="sc-icon" style="background:#f3e5f5;">🎗️</div><div class="sc-title">会员专属权益</div></div>
+        <div class="sc-body">完善的会员制度，注册即享多重礼遇。积分消费兑换、生日月特别优惠、新品优先体验、育儿知识讲座邀请等，让每一位家庭成为婴喜爱大家庭的重要一员。</div>
+        <div class="tags"><span class="tag">积分兑换</span><span class="tag">生日礼遇</span><span class="tag">专属折扣</span><span class="tag">育儿讲座</span></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-top"><div class="sc-icon" style="background:#ddf0e4;">📞</div><div class="sc-title">育儿咨询服务</div></div>
+        <div class="sc-body">每家门店都配有经过专业培训的育儿顾问，为新手父母提供从新生儿护理、喂养指导到早期成长发育的全方位咨询。科学育儿，从婴喜爱开始。</div>
+        <div class="tags"><span class="tag">专业顾问</span><span class="tag">喂养指导</span><span class="tag">成长咨询</span><span class="tag">免费服务</span></div>
       </div>
     </div>
   </section>
-</div>
 
-<!-- STORES -->
+  <!-- WeChat on services page too -->
+  <div class="wechat-section">
+    <div class="wechat-grid">
+      <div>
+        <div class="wc-pill">💬 微信小程序 · 线上购物</div>
+        <div class="wc-title">扫码即购<br/>随时随地下单</div>
+        <p class="wc-desc">婴喜爱微信小程序正式上线！无需下载 App，打开微信扫一扫，即可进入婴喜爱官方小程序，浏览全品类母婴好物、一键下单，配送上门。</p>
+        <div class="contact-pills">
+          <div class="contact-pill">
+            <span class="cp-icon">💬</span>
+            <div><div class="cp-label">微信 / 手机 / 短信</div><div class="cp-val">+86 186 0434 5110</div></div>
+          </div>
+          <div class="contact-pill">
+            <span class="cp-icon">📕</span>
+            <div><div class="cp-label">小红书官方账号</div><div class="cp-val">YHiA888</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="qr-card">
+        <div class="qr-label">微信扫一扫</div>
+        <div class="qr-img">
+          <img src="yhia_QR.jpg" alt="婴喜爱微信小程序二维码" onerror="this.style.display='none';this.parentNode.innerHTML='📱'"/>
+        </div>
+        <div class="qr-name">婴喜爱小程序</div>
+        <div class="qr-hint">用微信扫描上方二维码<br/>即可进入婴喜爱官方小程序</div>
+        <div class="qr-badge">更懂宝宝的喜爱 🍀</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /services -->
+
+
+<!-- ══════════════ STORES ══════════════ -->
 <div class="page" id="page-stores">
-  <div style="background:linear-gradient(135deg,#1a5226 0%,var(--green-dark) 100%);padding:80px 8vw;color:#fff;">
-    <div class="section-label" style="color:rgba(255,255,255,0.6);"><span style="background:rgba(255,255,255,0.3)"></span>门店网络<span style="background:rgba(255,255,255,0.3)"></span></div>
-    <h1 style="font-family:'Noto Serif SC',serif;font-size:clamp(30px,4vw,50px);font-weight:900;margin-bottom:16px;">扎根东北，服务百万家庭</h1>
-    <p style="font-size:15px;opacity:0.85;font-weight:300;line-height:1.9;">婴喜爱直营门店遍布吉林省及周边城市，200余家门店近在咫尺，<br/>无论您在哪里，都能找到身边的婴喜爱。</p>
+  <div class="page-hero">
+    <div class="ph-eyebrow">门店网络</div>
+    <h1 class="ph-title">扎根东北<br/>服务百万家庭</h1>
+    <p class="ph-desc">婴喜爱直营门店遍布吉林省及周边城市，200余家门店近在咫尺，无论您在哪里，都能找到身边的婴喜爱。</p>
   </div>
-  <div style="background:var(--yellow);padding:28px 8vw;display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
-    <div><div style="font-family:'Noto Serif SC',serif;font-size:56px;font-weight:900;color:var(--text-dark);line-height:1;">200+</div><div style="font-size:14px;color:var(--text-mid);font-weight:500;letter-spacing:1px;">直营连锁门店</div></div>
-    <div style="width:1px;height:60px;background:rgba(0,0,0,0.15);"></div>
-    <div><div style="font-family:'Noto Serif SC',serif;font-size:56px;font-weight:900;color:var(--text-dark);line-height:1;">7+</div><div style="font-size:14px;color:var(--text-mid);font-weight:500;letter-spacing:1px;">覆盖城市</div></div>
-    <div style="width:1px;height:60px;background:rgba(0,0,0,0.15);"></div>
-    <div><div style="font-family:'Noto Serif SC',serif;font-size:56px;font-weight:900;color:var(--text-dark);line-height:1;">18</div><div style="font-size:14px;color:var(--text-mid);font-weight:500;letter-spacing:1px;">年品牌积累</div></div>
-    <div style="width:1px;height:60px;background:rgba(0,0,0,0.15);"></div>
-    <div><div style="font-family:'Noto Serif SC',serif;font-size:56px;font-weight:900;color:var(--text-dark);line-height:1;">∞</div><div style="font-size:14px;color:var(--text-mid);font-weight:500;letter-spacing:1px;">家庭信任</div></div>
+
+  <div class="stats-band">
+    <div class="stat-block"><div class="stat-big">200<sup>+</sup></div><div class="stat-small">直营连锁门店</div></div>
+    <div class="stat-block"><div class="stat-big">7<sup>+</sup></div><div class="stat-small">覆盖城市</div></div>
+    <div class="stat-block"><div class="stat-big">18</div><div class="stat-small">年品牌积累</div></div>
+    <div class="stat-block"><div class="stat-big">∞</div><div class="stat-small">家庭信任</div></div>
   </div>
-  <div class="cities-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;padding:70px 8vw;">
-    <div class="city-card"><div style="font-size:32px;margin-bottom:12px;">🏙️</div><h3 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--green-dark);margin-bottom:6px;">长春市</h3><p style="font-size:12px;color:var(--text-light);">总部所在地 · 旗舰门店最多</p></div>
-    <div class="city-card"><div style="font-size:32px;margin-bottom:12px;">🌆</div><h3 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--green-dark);margin-bottom:6px;">吉林市</h3><p style="font-size:12px;color:var(--text-light);">重要核心城市 · 多店覆盖</p></div>
-    <div class="city-card"><div style="font-size:32px;margin-bottom:12px;">🏢</div><h3 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--green-dark);margin-bottom:6px;">四平市</h3><p style="font-size:12px;color:var(--text-light);">稳健布局 · 深受家庭喜爱</p></div>
-    <div class="city-card"><div style="font-size:32px;margin-bottom:12px;">🌃</div><h3 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--green-dark);margin-bottom:6px;">通辽市</h3><p style="font-size:12px;color:var(--text-light);">跨省布局 · 服务蒙东家庭</p></div>
-    <div class="city-card"><div style="font-size:32px;margin-bottom:12px;">🏬</div><h3 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--green-dark);margin-bottom:6px;">梅河口市</h3><p style="font-size:12px;color:var(--text-light);">区域重镇 · 持续扩大规模</p></div>
-    <div class="city-card"><div style="font-size:32px;margin-bottom:12px;">🏪</div><h3 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--green-dark);margin-bottom:6px;">通化市</h3><p style="font-size:12px;color:var(--text-light);">新兴市场 · 快速成长中</p></div>
-    <div class="city-card"><div style="font-size:32px;margin-bottom:12px;">🏘️</div><h3 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--green-dark);margin-bottom:6px;">伊通县</h3><p style="font-size:12px;color:var(--text-light);">下沉市场 · 为县城家庭服务</p></div>
-    <div class="city-card" style="background:linear-gradient(135deg,var(--green-light),#c8e6cc);border-color:var(--green-mid);"><div style="font-size:32px;margin-bottom:12px;">📍</div><h3 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--green-dark);margin-bottom:6px;">持续扩张中</h3><p style="font-size:12px;color:var(--text-light);">更多城市即将开业，敬请期待</p></div>
-  </div>
-  <section style="background:var(--cream);">
-    <div style="text-align:center;margin-bottom:48px;"><div class="section-label">门店标准</div><h2 class="section-title" style="text-align:center;">每一家门店，都是我们的骄傲</h2></div>
-    <div class="grid3">
-      <div class="card-white value-card"><div style="font-size:36px;margin-bottom:18px;">✅</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--green-dark);margin-bottom:10px;">统一选品标准</h3><p style="font-size:13px;color:var(--text-mid);line-height:1.8;font-weight:300;">全国统一商品准入标准，每一款产品都经过严格审核，确保正品保障</p></div>
-      <div class="card-white value-card"><div style="font-size:36px;margin-bottom:18px;">👨‍💼</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--green-dark);margin-bottom:10px;">专业团队管理</h3><p style="font-size:13px;color:var(--text-mid);line-height:1.8;font-weight:300;">每家门店店长均经过系统专业培训，掌握多维度管理能力与服务技巧</p></div>
-      <div class="card-white value-card"><div style="font-size:36px;margin-bottom:18px;">🏅</div><h3 style="font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;color:var(--green-dark);margin-bottom:10px;">一致服务体验</h3><p style="font-size:13px;color:var(--text-mid);line-height:1.8;font-weight:300;">无论在哪家婴喜爱，您都能享受到同等高标准的购物与服务体验</p></div>
+
+  <section class="sec sec-white">
+    <div class="eyebrow">覆盖城市</div>
+    <h2 class="sec-title" style="margin-bottom:40px;">我们在哪里</h2>
+    <div class="cities-grid">
+      <div class="city-card"><div class="city-icon">🏙️</div><div class="city-name">长春市</div><div class="city-note">总部所在地 · 旗舰门店最多</div></div>
+      <div class="city-card"><div class="city-icon">🌆</div><div class="city-name">吉林市</div><div class="city-note">重要核心城市 · 多店覆盖</div></div>
+      <div class="city-card"><div class="city-icon">🏢</div><div class="city-name">四平市</div><div class="city-note">稳健布局 · 深受家庭喜爱</div></div>
+      <div class="city-card"><div class="city-icon">🌃</div><div class="city-name">通辽市</div><div class="city-note">跨省布局 · 服务蒙东家庭</div></div>
+      <div class="city-card"><div class="city-icon">🏬</div><div class="city-name">梅河口市</div><div class="city-note">区域重镇 · 持续扩大规模</div></div>
+      <div class="city-card"><div class="city-icon">🏪</div><div class="city-name">通化市</div><div class="city-note">新兴市场 · 快速成长中</div></div>
+      <div class="city-card"><div class="city-icon">🏘️</div><div class="city-name">伊通县</div><div class="city-note">下沉市场 · 为县城家庭服务</div></div>
+      <div class="city-card" style="background:var(--mint);border-color:var(--sage);">
+        <div class="city-icon">📍</div><div class="city-name">持续扩张中</div><div class="city-note">更多城市即将开业，敬请期待</div>
+      </div>
     </div>
   </section>
-</div>
 
-<!-- SUPPLIER -->
+  <section class="sec sec-cream">
+    <div class="center" style="margin-bottom:48px;">
+      <div class="eyebrow" style="justify-content:center;">门店标准</div>
+      <h2 class="sec-title">每一家门店，都是我们的骄傲</h2>
+    </div>
+    <div class="store-standard">
+      <div class="ss-row">
+        <div class="ss-icon">✅</div>
+        <div class="ss-content"><h4>统一选品标准</h4><p>全国统一商品准入标准，每一款产品都经过严格审核，确保正品保障，让每位家长购物安心放心。</p></div>
+      </div>
+      <div class="ss-row">
+        <div class="ss-icon">👨‍💼</div>
+        <div class="ss-content"><h4>专业团队管理</h4><p>每家门店店长均经过系统专业培训，掌握多维度管理能力与服务技巧，打造温暖有序的购物环境。</p></div>
+      </div>
+      <div class="ss-row">
+        <div class="ss-icon">🏅</div>
+        <div class="ss-content"><h4>一致服务体验</h4><p>无论在哪家婴喜爱，您都能享受到同等高标准的购物与服务体验，品质承诺始终如一。</p></div>
+      </div>
+    </div>
+  </section>
+</div><!-- /stores -->
+
+
+<!-- ══════════════ SUPPLIER ══════════════ -->
 <div class="page" id="page-supplier">
-  <div style="background:linear-gradient(160deg,var(--text-dark) 0%,#2a4d2c 100%);padding:90px 8vw;color:#fff;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 90% 50%,rgba(74,170,90,0.15),transparent);pointer-events:none;"></div>
-    <div class="section-label" style="color:rgba(255,255,255,0.5);position:relative;"><span style="background:rgba(255,255,255,0.2)"></span>供应商合作<span style="background:rgba(255,255,255,0.2)"></span></div>
-    <h1 style="font-family:'Noto Serif SC',serif;font-size:clamp(30px,4vw,52px);font-weight:900;margin-bottom:24px;position:relative;">与婴喜爱同行<br/>共拓中国母婴市场</h1>
-    <p style="font-size:16px;line-height:2;max-width:620px;opacity:0.85;font-weight:300;position:relative;">婴喜爱拥有遍布东北地区的200余家直营门店，深厚的品牌积累与稳定的客户基础，是优质供应商进入中国东北市场的最佳合作伙伴。我们寻找与我们共同坚守品质与诚信的长期合作伙伴。</p>
+  <div class="page-hero" style="background:linear-gradient(160deg, var(--ink) 0%, #2d5c40 100%);">
+    <div class="ph-eyebrow">供应商合作</div>
+    <h1 class="ph-title">与婴喜爱同行<br/>共拓中国母婴市场</h1>
+    <p class="ph-desc">婴喜爱拥有遍布东北地区的200余家直营门店，深厚的品牌积累与稳定的客户基础，是优质供应商进入中国东北市场的最佳合作伙伴。我们寻找与我们共同坚守品质与诚信的长期合作伙伴。</p>
   </div>
 
-  <div style="padding:80px 8vw;background:var(--cream);">
-    <div class="section-label">合作优势</div>
-    <h2 class="section-title">为什么选择与婴喜爱合作</h2>
-    <div class="grid3" style="margin-top:52px;">
-      <div class="why-card"><div class="why-num">01</div><h3>强大的渠道覆盖</h3><p>200余家直营门店覆盖东北多个核心城市与县级市场，提供稳定且广泛的实体销售渠道，帮助供应商产品快速触达终端消费者。</p></div>
-      <div class="why-card"><div class="why-num">02</div><h3>近二十年品牌信任</h3><p>自2006年创立以来，婴喜爱已成为东北家庭最信赖的母婴品牌之一，强大的品牌背书为入驻产品建立消费者信任基础。</p></div>
-      <div class="why-card"><div class="why-num">03</div><h3>专业的运营能力</h3><p>拥有经过系统培训的专业门店团队、完善的会员体系及成熟的运营管理体系，确保合作产品得到最有效的展示与销售转化。</p></div>
-      <div class="why-card"><div class="why-num">04</div><h3>稳定的合作关系</h3><p>我们重视长期互利共赢的合作关系，与国内外多家知名品牌建立了多年的稳定合作，诚信经营是我们的核心准则。</p></div>
-      <div class="why-card"><div class="why-num">05</div><h3>深度的市场洞察</h3><p>深耕东北母婴市场近二十年，掌握区域消费者行为数据与购物偏好，帮助供应商伙伴制定更精准的市场策略。</p></div>
-      <div class="why-card"><div class="why-num">06</div><h3>持续的规模扩张</h3><p>门店网络持续扩张中，意味着合作产品随婴喜爱一同成长，享受不断扩大的市场红利与品牌增值。</p></div>
+  <section class="sec sec-cream">
+    <div class="eyebrow">合作优势</div>
+    <h2 class="sec-title">为什么选择与婴喜爱合作</h2>
+    <div class="why-grid" style="margin-top:48px;">
+      <div class="why-card"><div class="why-num">01</div><div class="why-title">强大的渠道覆盖</div><div class="why-body">200余家直营门店覆盖东北多个核心城市与县级市场，提供稳定且广泛的实体销售渠道，帮助供应商产品快速触达终端消费者。</div></div>
+      <div class="why-card"><div class="why-num">02</div><div class="why-title">近二十年品牌信任</div><div class="why-body">自2006年创立以来，婴喜爱已成为东北家庭最信赖的母婴品牌之一，强大的品牌背书为入驻产品建立消费者信任基础。</div></div>
+      <div class="why-card"><div class="why-num">03</div><div class="why-title">专业的运营能力</div><div class="why-body">拥有经过系统培训的专业门店团队、完善的会员体系及成熟的运营管理体系，确保合作产品得到最有效的展示与销售转化。</div></div>
+      <div class="why-card"><div class="why-num">04</div><div class="why-title">稳定的合作关系</div><div class="why-body">我们重视长期互利共赢的合作关系，与国内外多家知名品牌建立了多年的稳定合作，诚信经营是我们的核心准则。</div></div>
+      <div class="why-card"><div class="why-num">05</div><div class="why-title">深度的市场洞察</div><div class="why-body">深耕东北母婴市场近二十年，掌握区域消费者行为数据与购物偏好，帮助供应商伙伴制定更精准的市场策略。</div></div>
+      <div class="why-card"><div class="why-num">06</div><div class="why-title">持续的规模扩张</div><div class="why-body">门店网络持续扩张中，意味着合作产品随婴喜爱一同成长，享受不断扩大的市场红利与品牌增值。</div></div>
     </div>
-  </div>
+  </section>
 
-  <div style="padding:80px 8vw;">
-    <div style="text-align:center;margin-bottom:16px;"><div class="section-label">合作流程</div><h2 class="section-title" style="text-align:center;">简单四步，开启合作</h2></div>
+  <section class="sec sec-white">
+    <div class="center" style="margin-bottom:16px;">
+      <div class="eyebrow" style="justify-content:center;">合作流程</div>
+      <h2 class="sec-title">简单四步，开启合作</h2>
+    </div>
     <div class="flow-steps">
-      <div class="flow-step"><div class="flow-step-circle">📋</div><h4>提交资料</h4><p>填写合作申请表，提交企业资质、产品资料及品牌介绍</p></div>
-      <div class="flow-step"><div class="flow-step-circle">🔍</div><h4>资质审核</h4><p>采购团队对供应商资质、产品品质与市场适配性进行审核</p></div>
-      <div class="flow-step"><div class="flow-step-circle">🤝</div><h4>洽谈合作</h4><p>双方就合作模式、铺货方案、账期条款等细节进行沟通</p></div>
-      <div class="flow-step"><div class="flow-step-circle">🚀</div><h4>正式入驻</h4><p>签署合作协议，产品进入婴喜爱门店，开始市场运营</p></div>
+      <div class="flow-step"><div class="fs-circle">📋</div><div class="fs-title">提交资料</div><div class="fs-body">填写合作申请表，提交企业资质、产品资料及品牌介绍</div></div>
+      <div class="flow-step"><div class="fs-circle">🔍</div><div class="fs-title">资质审核</div><div class="fs-body">采购团队对供应商资质、产品品质与市场适配性进行审核</div></div>
+      <div class="flow-step"><div class="fs-circle">🤝</div><div class="fs-title">洽谈合作</div><div class="fs-body">双方就合作模式、铺货方案、账期条款等细节进行沟通</div></div>
+      <div class="flow-step"><div class="fs-circle">🚀</div><div class="fs-title">正式入驻</div><div class="fs-body">签署合作协议，产品进入婴喜爱门店，开始市场运营</div></div>
     </div>
-  </div>
+  </section>
 
-  <div style="background:var(--green-light);padding:80px 8vw;">
-    <div class="section-label">立即联系</div>
-    <h2 class="section-title">发送合作申请</h2>
-    <p class="section-sub">欢迎国内外母婴品牌及优质供应商与我们接洽，共同为中国东北家庭带来更好的育儿产品</p>
-    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:60px;align-items:start;">
-      <!-- Contact info -->
+  <section class="sec sec-cream">
+    <div class="eyebrow">立即联系</div>
+    <h2 class="sec-title">发送合作申请</h2>
+    <p class="sec-body">欢迎国内外母婴品牌及优质供应商与我们接洽，共同为中国东北家庭带来更好的育儿产品</p>
+    <div class="contact-grid">
+      <!-- Info -->
       <div>
-        <h3 style="font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--green-dark);margin-bottom:20px;">联系我们</h3>
-        <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;">
-          <div style="width:40px;height:40px;border-radius:12px;background:var(--green-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🏢</div>
-          <div><p style="font-size:12px;color:var(--text-light);margin-bottom:2px;">总部地址</p><p style="font-size:14px;color:var(--text-dark);font-weight:500;">吉林省长春市</p></div>
+        <h3 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--forest);margin-bottom:20px;">联系我们</h3>
+        <div class="contact-info">
+          <div class="ci-row"><div class="ci-icon">🏢</div><div><div class="ci-label">总部地址</div><div class="ci-val">吉林省长春市</div></div></div>
+          <div class="ci-row"><div class="ci-icon">💬</div><div><div class="ci-label">微信 / 手机号</div><div class="ci-val">+86 186 0434 5110</div></div></div>
+          <div class="ci-row"><div class="ci-icon">📱</div><div><div class="ci-label">短信咨询</div><div class="ci-val">发短信至 +86 186 0434 5110，我们将尽快回复</div></div></div>
+          <div class="ci-row"><div class="ci-icon" style="background:#d45c6a;">📕</div><div><div class="ci-label">小红书官方账号</div><div class="ci-val">YHiA888</div></div></div>
+          <div class="ci-row"><div class="ci-icon">🕐</div><div><div class="ci-label">工作时间</div><div class="ci-val">周一至周六 09:00 – 18:00</div></div></div>
         </div>
-        <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;">
-          <div style="width:40px;height:40px;border-radius:12px;background:var(--green-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">💬</div>
-          <div><p style="font-size:12px;color:var(--text-light);margin-bottom:2px;">微信 / 手机号</p><p style="font-size:14px;color:var(--text-dark);font-weight:500;">+86 186 0434 5110</p></div>
-        </div>
-        <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;">
-          <div style="width:40px;height:40px;border-radius:12px;background:var(--green-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">📱</div>
-          <div><p style="font-size:12px;color:var(--text-light);margin-bottom:2px;">短信咨询</p><p style="font-size:14px;color:var(--text-dark);font-weight:500;">发短信至 +86 186 0434 5110，我们将尽快回复</p></div>
-        </div>
-        <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;">
-          <div style="width:40px;height:40px;border-radius:12px;background:#fe2d55;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">📕</div>
-          <div><p style="font-size:12px;color:var(--text-light);margin-bottom:2px;">小红书官方账号</p><p style="font-size:14px;color:var(--text-dark);font-weight:500;">YHiA888</p></div>
-        </div>
-        <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:28px;">
-          <div style="width:40px;height:40px;border-radius:12px;background:var(--green-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🕐</div>
-          <div><p style="font-size:12px;color:var(--text-light);margin-bottom:2px;">工作时间</p><p style="font-size:14px;color:var(--text-dark);font-weight:500;">周一至周六 09:00 – 18:00</p></div>
-        </div>
-        <div style="background:#fff;border-radius:16px;padding:24px;box-shadow:var(--shadow);">
-          <p style="font-size:13px;color:var(--text-mid);line-height:2;"><strong style="color:var(--green-dark);">我们正在寻找：</strong><br/>· 婴幼儿奶粉及辅食品牌<br/>· 纸尿裤及护理用品品牌<br/>· 婴幼儿玩具及早教品牌<br/>· 婴幼儿服装及棉品品牌<br/>· 其他优质母婴相关品类</p>
+        <div class="looking-for" style="margin-top:20px;">
+          <div class="lf-title">我们正在寻找：</div>
+          <div class="lf-body">· 婴幼儿奶粉及辅食品牌<br/>· 纸尿裤及护理用品品牌<br/>· 婴幼儿玩具及早教品牌<br/>· 婴幼儿服装及棉品品牌<br/>· 其他优质母婴相关品类</div>
         </div>
       </div>
       <!-- Form -->
-      <div style="background:#fff;border-radius:24px;padding:44px 40px;box-shadow:var(--shadow);">
-        <h3 style="font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;color:var(--text-dark);margin-bottom:28px;">合作申请表</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="form-box">
+        <div class="form-title">合作申请表</div>
+        <div class="form-row">
           <div class="form-group"><label>公司名称 *</label><input type="text" placeholder="请输入贵司全称"/></div>
           <div class="form-group"><label>联系人姓名 *</label><input type="text" placeholder="您的姓名"/></div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="form-row">
           <div class="form-group"><label>联系电话（微信同号）*</label><input type="tel" placeholder="+86 手机号码"/></div>
           <div class="form-group"><label>微信号（如与手机号不同）</label><input type="text" placeholder="请填写微信号"/></div>
         </div>
-        <div class="form-group"><label>产品品类 *</label><select><option value="">请选择主要产品品类</option><option>奶粉 · 辅食</option><option>纸尿裤 · 护理</option><option>玩具 · 早教</option><option>服装 · 棉品</option><option>车床 · 家具</option><option>孕期 · 哺乳用品</option><option>其他母婴品类</option></select></div>
+        <div class="form-group"><label>产品品类 *</label>
+          <select>
+            <option value="">请选择主要产品品类</option>
+            <option>奶粉 · 辅食</option>
+            <option>纸尿裤 · 护理</option>
+            <option>玩具 · 早教</option>
+            <option>服装 · 棉品</option>
+            <option>车床 · 家具</option>
+            <option>孕期 · 哺乳用品</option>
+            <option>其他母婴品类</option>
+          </select>
+        </div>
         <div class="form-group"><label>品牌介绍 / 合作意向</label><textarea placeholder="请简要介绍您的品牌背景、主要产品，以及与婴喜爱合作的具体设想…"></textarea></div>
-        <div style="background:#fff8e1;border-radius:10px;padding:14px 18px;margin-bottom:16px;font-size:13px;color:#a07a00;line-height:1.7;">📱 提交后，我们将通过<strong>短信或微信</strong>与您联系，请保持手机畅通。</div>
+        <div class="form-note">📱 提交后，我们将通过<strong>短信或微信</strong>与您联系，请保持手机畅通。</div>
         <button class="form-submit" onclick="alert('感谢您的申请！婴喜爱商务团队将在3个工作日内通过短信或微信（+86 186 0434 5110）与您联系。')">提交合作申请</button>
       </div>
     </div>
-  </div>
-</div>
+  </section>
+</div><!-- /supplier -->
+
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <p style="margin-bottom:16px;">婴喜爱 YHIA 创立于2006年，是中国东北领先的孕婴童连锁品牌，以"价格平、服务优、品种全"为核心理念，守护百万家庭的育儿旅程。</p>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <span style="font-size:12px;">💬 微信/短信：+86 186 0434 5110</span>
-        <span style="font-size:12px;">📕 小红书：YHiA888</span>
+      <img src="yhia_logo.png" alt="婴喜爱 YHIA"/>
+      <p>婴喜爱 YHIA 创立于2006年，是中国东北领先的孕婴童连锁品牌，以"价格平、服务优、品种全"为核心理念，守护百万家庭的育儿旅程。</p>
+      <div class="socials">
+        <span>💬 微信/短信：+86 186 0434 5110</span>
+        <span>📕 小红书：YHiA888</span>
       </div>
     </div>
-    <div class="footer-col"><h4>关于我们</h4><ul><li onclick="showPage('about')">品牌故事</li><li onclick="showPage('about')">核心价值观</li><li onclick="showPage('about')">发展历程</li></ul></div>
-    <div class="footer-col"><h4>服务与门店</h4><ul><li onclick="showPage('services')">服务项目</li><li onclick="showPage('services')">微信小程序</li><li onclick="showPage('stores')">门店网络</li></ul></div>
-    <div class="footer-col"><h4>商务合作</h4><ul><li onclick="showPage('supplier')">供应商合作</li><li onclick="showPage('supplier')">合作申请</li><li>💬 +86 186 0434 5110</li></ul></div>
+    <div class="footer-col">
+      <h4>关于我们</h4>
+      <ul>
+        <li onclick="showPage('about')">品牌故事</li>
+        <li onclick="showPage('about')">核心价值观</li>
+        <li onclick="showPage('about')">发展历程</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>服务与门店</h4>
+      <ul>
+        <li onclick="showPage('services')">服务项目</li>
+        <li onclick="showPage('services')">微信小程序</li>
+        <li onclick="showPage('stores')">门店网络</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>商务合作</h4>
+      <ul>
+        <li onclick="showPage('supplier')">供应商合作</li>
+        <li onclick="showPage('supplier')">合作申请</li>
+        <li>💬 +86 186 0434 5110</li>
+      </ul>
+    </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2006–2026 <span class="yhia-text">婴喜爱 YHIA</span>. 保留所有权利。</span>
+    <span>© 2006–2024 <span class="yhia-brand">婴喜爱 YHIA</span>. 保留所有权利。</span>
     <span>吉林省长春市 · 微信/短信：+86 186 0434 5110 · 小红书：YHiA888</span>
   </div>
 </footer>
